@@ -1,23 +1,24 @@
-// ai-excited-01 entry (Node 22, standard library only).
-//
-// The entry image lives next to this file as entry.png: a tiny paper boat
-// riding the face of a colossal wave, seen from behind as the barrel curls
-// overhead and golden light breaks through the tunnel. The whole idea is
-// scale: one fragile folded boat against an ocean about to break.
-// This program copies that image to /output/entry.png, exactly as the
-// judge will see it. No network, no randomness: every run writes the
-// same bytes, so the two grading runs are byte-identical by construction.
-//
-// Local run:
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// ai-excited-01 — "Paper boat vs giant wave" (rebuild #2).
+// Node 22, standard library only, no network. The entry image lives in
+// this repository as entry.png; this program copies it to the output
+// directory the grader provides, so both runs write identical bytes.
 
-import { copyFileSync, mkdirSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { copyFileSync, mkdirSync, statSync } from "node:fs";
+import { join } from "node:path";
 
-const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
-const source = join(dirname(fileURLToPath(import.meta.url)), 'entry.png');
-const destination = join(outDir, 'entry.png');
+const source = new URL("./entry.png", import.meta.url);
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const target = join(outDir, "entry.png");
 
 mkdirSync(outDir, { recursive: true });
-copyFileSync(source, destination);
+copyFileSync(source, target);
+
+// Guard: the copied file must match the source byte for byte in size.
+const sourceBytes = statSync(source).size;
+const targetBytes = statSync(target).size;
+if (targetBytes !== sourceBytes) {
+  throw new Error(
+    `entry.png copy size mismatch: wrote ${targetBytes} bytes, source is ${sourceBytes}`,
+  );
+}
+console.log(`wrote ${target} (${targetBytes} bytes)`);
