@@ -1,4 +1,4 @@
-// ai-excited-01 — "Perahu kertas vs ombak raksasa" (rebuild #4, fresh in this session).
+// ai-excited-01 — "Perahu kertas vs ombak raksasa" (rebuild #5, fresh in this session).
 // Concept A from the brief: a tiny glowing paper boat beneath a colossal
 // curling wave, golden light bursting through indigo water. No text in the
 // image, one clear focal point, reads at ~300 px.
