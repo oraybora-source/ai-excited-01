@@ -1,4 +1,4 @@
-// ai-excited-01 — "Perahu kertas vs ombak raksasa" (rebuild #3, fresh in this session).
+// ai-excited-01 — "Perahu kertas vs ombak raksasa" (rebuild #4, fresh in this session).
 // Concept A from the brief: a tiny glowing paper boat beneath a colossal
 // curling wave, golden light bursting through indigo water. No text in the
 // image, one clear focal point, reads at ~300 px.
@@ -12,6 +12,7 @@
 // Run locally with: mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -49,3 +50,8 @@ if (!written.equals(image)) {
 if (!existsSync(outputPath)) {
   throw new Error(`failed to write ${outputPath}`);
 }
+
+// Report the digest of what was written, so two runs can be compared
+// directly from the log.
+const digest = createHash('sha256').update(written).digest('hex');
+console.log(`wrote ${outputPath} (${written.length} bytes, sha256 ${digest})`);

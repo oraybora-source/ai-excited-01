@@ -27,13 +27,20 @@ copy is byte-complete. Running it twice produces byte-identical output.
 ## Files
 
 - `main.ts` — the entry program
-- `entry.png` — the image (1024×1024, JPEG bytes, 294,919 bytes, under
+- `entry.png` — the image (1024×1024, JPEG bytes, 262,959 bytes, under
   the 1 MiB limit)
 - `LICENSE` — OSI license
 
 ## Verification (local, before submit)
 
 - `node main.ts` run twice → both `/output/entry.png` outputs have
-  sha256 `7a5946c02d163d094c197ab076fa329a86d2975aa54ab350cd335fc5e4db7b81`
+  sha256 `e101722ee58bcf160f276e9280e495570afeaf4da194d0c7787bb27f4b9b49b0`
 - Kit check: `node cli/makefun.mjs check --competition ai-excited-01
   --source ~/workspace/makefun/ai-excited-01` — all checks pass
+
+## Rebuild #4
+
+Fresh image generated in this recorded session (same Concept A, new
+render: brighter golden tunnel light, boat glowing at the center of the
+frame). `main.ts` rewritten fresh in this session with an added sha256
+report line; logic unchanged from the proven rebuild #3 approach.
